@@ -1,5 +1,7 @@
 class Config():
-    SECRET_KEY =''
+    SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://moringa:Royal12@localhost/blogs'
+
+    SECRET_KEY ='secret'
 
 class ProdConfig(Config):
     pass
