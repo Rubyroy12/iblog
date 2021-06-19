@@ -30,12 +30,40 @@ class User(UserMixin,db.Model):
             return f'User {self.username}'
 
 
-class Blog():
+class Blog(db.Model):
 
-        def __init__(self,title,blog,author):
-                self.title = title
-                self.blog = blog
-                self.author = author
+        """
+        class blog that defines blog objects
+        """
+        __tablename__ = 'myblogs'
+        id= db.Column(db.Integer, primary_key=True)
+        title= db.Column(db.String(50))
+        author= db.Column(db.String(20))
+        blog= db.Column(db.String(1000))
+
+        def save_blog(self):
+                db.session.add(self)
+                db.session.commit()
+        @classmethod
+        def get_blog(cls,id):
+                blog = Blog.query.filter_by(blog_id=id).all()
+                return blog
+                
+
+
+class Comment(db.Model):
+        __tablename__ = 'comments'
+        id = db.Column(db.Integer, primary_key=True)
+        comment = db.Column(db.String(255))
+
+        def save_comment(self):
+                db.session.add(self)
+                db.session.commit()
+        @classmethod
+        def get_comment(cls,id):
+                comment = Comment.query.filter_by(blog_id=id).all()
+                return comment
+                
+        def __repr__(self):
+                return f'Comment: {self.comment}'
         
-
-
