@@ -66,4 +66,13 @@ class Comment(db.Model):
                 
         def __repr__(self):
                 return f'Comment: {self.comment}'
+
+class Subscribe(db.Model):
+        __tablename__ = 'subscribers'
+        id = db.Column(db.Integer, primary_key=True)
+        email = db.Column(db.String(50))
+
+        def save_email(self):
+                db.session.add(self)
+                db.session.commit()
         
