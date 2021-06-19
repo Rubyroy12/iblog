@@ -4,7 +4,7 @@ from . import auth
 from ..models import User
 from .forms import RegistrationForm,LoginForm
 from .. import db
-from ..email import mail_message
+# from ..email import mail_message
 
 
 
@@ -17,7 +17,7 @@ def register():
         db.session.add(user)
         db.session.commit()
 
-        mail_message("Welcome to Minute Pitch","/welcome_user",user.email,user=user)
+        # mail_message("Welcome to iBlog","/welcome_user",user.email,user=user)
         return  redirect(url_for('auth.login'))
     return render_template('register.html',registrationform=form)
 
@@ -32,7 +32,7 @@ def login():
             return redirect(request.args.get('next') or url_for('main.index'))
         flash('Invalid email or Password')
 
-    title = "Pitch login"
+    title = "iBlog login"
     return render_template('login.html',login_form = login_form,title=title)
 
 

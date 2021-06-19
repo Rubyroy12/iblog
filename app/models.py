@@ -1,10 +1,14 @@
 from app import db
 from werkzeug.security import generate_password_hash,check_password_hash
+from flask_login import UserMixin
+from . import login_manager
 
-# from flask import UserMixin
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 
-class User(db.Model):
+class User(UserMixin,db.Model):
     __tablename__ = 'users'
     id= db.Column(db.Integer, primary_key=True)
     username= db.Column(db.String(20))
@@ -24,5 +28,14 @@ class User(db.Model):
 
     def __repr__(self):
             return f'User {self.username}'
+
+
+class Blog():
+
+        def __init__(self,title,blog,author):
+                self.title = title
+                self.blog = blog
+                self.author = author
+        
 
 
