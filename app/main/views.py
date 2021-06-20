@@ -5,12 +5,15 @@ from ..models import Blog,User,Comment,Subscribe
 from .forms import BlogForm,CommentsForm,SubscriptionForm
 from .. import db
 import markdown2 
-# from ..email import mail_message
+from ..email import mail_message
+from ..request import getQuotes
 
 @main.route('/')
 def index():
 
-    return render_template('index.html' , current_user=current_user)
+    getquotes = getQuotes()
+
+    return render_template('index.html' , current_user=current_user,getquotes = getquotes)
 
 
 @main.route('/blogs')
@@ -35,6 +38,7 @@ def create():
         new_blog.save_blog()
         db.session.add(new_blog)
         db.session.commit()
+        #mail_message("Thank You for Subscribing","/thank_you",user.email,user=user)
         return redirect(url_for('main.blog'))
       
     
@@ -60,10 +64,20 @@ def comments(id):
         new_subscriber.save_email()
         db.session.add(new_subscriber)
         db.session.commit()
+        
         return redirect(url_for('main.comments',id= id))
     
-    flash('Thank you for subscribing to our Blog!!')
+    # flash('Thank you for subscribing to our Blog!!')
     comment = Comment.query.filter_by(id=id).all()
     format_blog = markdown2.markdown(blog.blog,extras=["code-friendly", "fenced-code-blocks"])
     return  render_template("comments.html", blog=blog, format_blog=format_blog , commentform=commentform, comments=comment,subscribeform=subscribeform)
 
+@main.route('/deleteblog/<int:id>', methods=['GET', 'POST'])
+@login_required
+def deleteBlog(id):
+    blog = Blog.query.get_or_404(id)
+    db.session.delete(blog)
+    db.session.commit()
+    return redirect(url_for('main.blog'))
+
+    return render_template('blogs.html')

@@ -1,20 +1,33 @@
 {%extends 'base.html'%}
 {% import 'bootstrap/wtf.html' as wtf%}
 {%block content%}
-<div class="blogpage">
-    <h2>Enjoy reading</h2>
-    <h4>{{blog.title}}</h4>
-    <p>{{format_blog|safe}}</p>
+<div class="blogpage bg-success">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <h2>Enjoy reading</h2>
+            <h4>{{blog.title}}</h4>
+            <p>{{format_blog|safe}}</p>
+            <hr>
+            <h4>--Comments --</h4>
+            <ul>
+                {%for comment in comments %}
+                <li>
+                    {{comment.comment}}
+                </li>
+                {%endfor%}
+            </ul>
+        
+        
+
+       </div>
+        <div class="col-md-2"></div>
 
 
-    <h4>--Comments --</h4>
-    <ul>
-        {%for comment in comments %}
-        <li>
-            {{comment.comment}}
-        </li>
-        {%endfor%}
-     </ul>
+
+    </div>
+    
+
 
    
 
@@ -35,11 +48,12 @@
 
 {% block footer %}
 <div class="row">
-    <div class="col-md-12">
-        <div class="card-footer" style="height:10vh;font-size: 25px; display:flex; justify-content:center;border-top: 2px solid green;">
-        <p>&copy; Copyright 2021 by <a href="/">iBlog</a>.</p>
+    <div class="col-md-10">
+        <div class="card-footer"
+            style="height:10vh;font-size: 25px; display:flex; justify-content:center;border-top: 2px solid green;">
+            <p>&copy; Copyright 2021 by <a href="/">iBlog</a>.</p>
+        </div>
     </div>
-</div>
 
 </div>
 {% endblock %}

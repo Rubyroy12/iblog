@@ -48,6 +48,11 @@ class Blog(db.Model):
         def get_blog(cls,id):
                 blog = Blog.query.filter_by(blog_id=id).all()
                 return blog
+
+        def deleteblog(self):
+                db.session.delete(self)
+                db.session.commit() 
+
                 
 
 
@@ -75,4 +80,8 @@ class Subscribe(db.Model):
         def save_email(self):
                 db.session.add(self)
                 db.session.commit()
-        
+class Quote:
+    def __init__(self,id,author,quote):
+        self.id =id
+        self.author = author
+        self.quote = quote
