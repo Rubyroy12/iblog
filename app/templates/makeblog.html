@@ -4,27 +4,32 @@
 {% import 'bootstrap/wtf.html' as wtf%}
 <div class="bg-secondary" style="height: 100vh;">
 
-  <h3>create a blog</h3>
-  <div class="row">
-      <div class="col-md-3"></div>
-      <div class="col-md-6">
-        {{wtf.quick_form(blog_form)}}
-        {{simplemde.load}}
-      </div>
-      <div class="col-md-3"></div>
-
-    
-  </div>
  
-</div>
+  <div class="row bg-success">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+      <h3>Create a blog</h3>
+      <hr>
+      {{wtf.quick_form(blog_form)}}
+      {{simplemde.load}}
+    </div>
+    <div class="col-md-3"></div>
 
+
+  </div>
+
+
+</div>
+<br>
+<br>
 {% block footer %}
 <div class="row">
-    <div class="col-md-10">
-        <div class="card-footer" style="height:10vh;font-size: 25px; display:flex; justify-content:center;border-top: 2px solid green;">
-        <p>&copy; Copyright 2021 by <a href="/">iBlog</a>.</p>
+  <div class="col-md-10">
+    <div class="card-footer"
+      style="height:10vh;font-size: 25px; display:flex; justify-content:center;border-top: 2px solid green;">
+      <p>&copy; Copyright 2021 by <a href="/">iBlog</a>.</p>
     </div>
-</div>
+  </div>
 
 </div>
 {% endblock %}
