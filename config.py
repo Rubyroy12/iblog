@@ -12,6 +12,8 @@ class Config():
     SECRET_KEY ='secret'
     SIMPLEMDE_JS_IIFE = True
     SIMPLEMDE_USE_CDN = True
+    #photos destinations
+    UPLOADED_PHOTOS_DEST ='app/static/photos'
 
 class ProdConfig(Config):
     pass
