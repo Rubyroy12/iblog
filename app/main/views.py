@@ -58,11 +58,12 @@ def update_pic(uname):
 def blog():
     # user = User.query.filter_by(username = uname).first()
 
-    all_blogs=Blog.query.order_by(Blog.title).all()
+    all_blogs=Blog.query.order_by(Blog.posted).all()
 
     return render_template("blogs.html", blogs=all_blogs)
 
 @main.route('/blogs/makeblog',methods=['POST','GET'])
+@login_required
 def create():
 
     form = BlogForm()
@@ -84,6 +85,7 @@ def create():
     return render_template("makeblog.html", blog_form=form)
 
 @main.route('/comments/<int:id>',methods=['POST','GET'])
+@login_required
 def comments(id):
     blog = Blog.query.get(id)
     commentform = CommentsForm()
@@ -119,3 +121,35 @@ def deleteBlog(id):
     return redirect(url_for('main.blog'))
 
     return render_template('blogs.html')
+
+
+
+#################################################################################
+# @main.route('/comments/<id>')
+# @login_required
+# def comment(id):
+#     '''
+#     function to return the comments
+#     '''
+#     comm =Comments.get_comment(id)
+   
+#     title = 'comments'
+#     return render_template('comments.html',comment = comm,title = title)
+
+
+
+# @main.route('/new_comment/<int:blogs_id>', methods = ['GET', 'POST'])
+# @login_required
+# def new_comment(blogs_id):
+    
+#     blogs = Blogs.query.filter_by(id = blogs_id).first()
+#     form = CommentForm()
+
+#     if form.validate_on_submit():
+#         comment = form.comment.data
+#         new_comment = Comments(comment=comment,user_id=current_user.id, blogs_id=blogs_id)
+#         new_comment.save_comment()
+
+#         return redirect(url_for('main.category'))
+#     title='New Blog'
+#     return render_template('new_comment.html',title=title,comment_form = form,blogs_id=blogs_id)
