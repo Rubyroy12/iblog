@@ -25,14 +25,17 @@
                     <hr>
                     <p>By: {{blog.author}} </p>
                     <p>Posted at: {{blog.posted.strftime('%Y-%m-%d')}}</p>
+                    
+                    {% if current_user.is_authenticated %}
                     <a href="{{url_for('main.comments',id=blog.id)}}" class="btn btn-default btn-success">
                         Read More</a>
-                    {% if current_user.is_authenticated %}
                     <a class="btn btn-default btn-danger"href="{{url_for('main.deleteBlog', id = blog.id)}}" class="card-link">Delete</a>
-                    <a class="btn btn-default btn-warning"href="#" class="card-link">Update</a>
+            
                     {%else %}
+                    <a href="{{url_for('main.blog')}}" class="btn btn-default btn-success">
+                        Read More</a>
                     <a class="btn btn-default btn-danger" href="{{url_for('main.blog')}}" class="card-link">Delete</a>
-                    <a class="btn btn-default btn-warning"href="#" class="card-link">Update</a>
+                    
                     {% endif%}
 
                   
