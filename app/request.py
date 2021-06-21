@@ -1,5 +1,5 @@
-import requests,json
 from .models import Quote
+import urllib.request,json
 
 # Getting the quote base url
 base_url=None
