@@ -1,7 +1,7 @@
 {% extends 'base.html'%}
 
 {% block content%}
-<div class="container bg-success" style="height: 100vh;">
+<div class="container" style="height: 100vh; background-color: rgb(2, 2, 32);">
 
 
     <h3>Blogs page</h3>
@@ -15,6 +15,7 @@
     <hr>
 
     <div class="row">
+        
 
         {%for blog in blogs%}
         <div class="col-sm-4">
@@ -39,7 +40,7 @@
             </div>
         </div>
         {%endfor%}
-
+       
 
     </div>
 
