@@ -17,10 +17,10 @@ class Config():
     UPLOADED_PHOTOS_DEST ='app/static/photos'
 
 class ProdConfig(Config):
-    # SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL","")
-    # if SQLALCHEMY_DATABASE_URI.startswith("postgres://"):
-    #     SQLALCHEMY_DATABASE_URI =SQLALCHEMY_DATABASE_URI.replace("postgres://","postgresql://",1)
-    pass
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL","")
+    if SQLALCHEMY_DATABASE_URI.startswith("postgres://"):
+        SQLALCHEMY_DATABASE_URI =SQLALCHEMY_DATABASE_URI.replace("postgres://","postgresql://",1)
+    
 class DevConfig(Config):
     SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://moringa:Royal12@localhost/blogs'
     DEBUG =True
