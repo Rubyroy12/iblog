@@ -90,6 +90,10 @@ class Subscribe(db.Model):
         def save_email(self):
                 db.session.add(self)
                 db.session.commit()
+
+        def get_subscriber(cls,id):
+                sub = Subscribe.query.filter_by(id=id).all()
+                return sub
 class Quote:
     def __init__(self,id,author,quote):
         self.id =id
