@@ -67,6 +67,7 @@ def blog():
 def create():
 
     form = BlogForm()
+    
    
     if form.validate_on_submit():
         title = form.title.data
@@ -77,7 +78,7 @@ def create():
         new_blog.save_blog()
         db.session.add(new_blog)
         db.session.commit()
-        #mail_message("Thank You for Subscribing","/thank_you",user.email,user=user)
+     
         return redirect(url_for('main.blog'))
       
     
@@ -100,14 +101,16 @@ def comments(id):
     
     if subscribeform.validate_on_submit():
         email = subscribeform.email.data
-        new_subscriber=Subscribe(email=email)
-        new_subscriber.save_email()
-        db.session.add(new_subscriber)
+        sub=Subscribe(email=email)
+        sub.save_email()
+        db.session.add(sub)
         db.session.commit()
+
+        mail_message("Thank You for Subscribing","/thank_you",sub.email,sub=sub)
         
         return redirect(url_for('main.comments',id= id))
     
-    # flash('Thank you for subscribing to our Blog!!')
+    
     comment = Comment.query.filter_by(id=id).all()
     format_blog = markdown2.markdown(blog.blog,extras=["code-friendly", "fenced-code-blocks"])
     return  render_template("comments.html", blog=blog, format_blog=format_blog , commentform=commentform, comments=comment,subscribeform=subscribeform)
@@ -124,32 +127,3 @@ def deleteBlog(id):
 
 
 
-#################################################################################
-# @main.route('/comments/<id>')
-# @login_required
-# def comment(id):
-#     '''
-#     function to return the comments
-#     '''
-#     comm =Comments.get_comment(id)
-   
-#     title = 'comments'
-#     return render_template('comments.html',comment = comm,title = title)
-
-
-
-# @main.route('/new_comment/<int:blogs_id>', methods = ['GET', 'POST'])
-# @login_required
-# def new_comment(blogs_id):
-    
-#     blogs = Blogs.query.filter_by(id = blogs_id).first()
-#     form = CommentForm()
-
-#     if form.validate_on_submit():
-#         comment = form.comment.data
-#         new_comment = Comments(comment=comment,user_id=current_user.id, blogs_id=blogs_id)
-#         new_comment.save_comment()
-
-#         return redirect(url_for('main.category'))
-#     title='New Blog'
-#     return render_template('new_comment.html',title=title,comment_form = form,blogs_id=blogs_id)
