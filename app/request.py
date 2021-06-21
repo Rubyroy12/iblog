@@ -11,12 +11,12 @@ def configure_request(app):
 def getQuotes(): 
     # request.urlopen(base_url):
         
-        lll = requests.get(base_url).json()
+        new = requests.get(base_url).json()
        
         r = []
-        id = lll.get('id')
-        author = lll.get('author')
-        quote = lll.get('quote')
+        id = new.get('id')
+        author = new.get('author')
+        quote = new.get('quote')
 
         quoteObject = Quote(id,author,quote)
         r.append(quoteObject)
